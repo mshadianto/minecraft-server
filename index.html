@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Bedrock Servers - List Server Terbaik</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #2a1a3a 100%);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated background particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(0, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float 20s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        /* Header */
+        header {
+            position: relative;
+            z-index: 10;
+            padding: 2rem;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            font-size: 3rem;
+            background: linear-gradient(135deg, #00f5ff, #00ff88, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s infinite;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 30px rgba(0, 245, 255, 0.5);
+        }
+
+        @keyframes shimmer {
+            0%, 100% {
+                filter: hue-rotate(0deg);
+            }
+            50% {
+                filter: hue-rotate(45deg);
+            }
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #00f5ff;
+            opacity: 0.8;
+        }
+
+        /* Container */
+        .container {
+            position: relative;
+            z-index: 5;
+            max-width: 1400px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 245, 255, 0.3);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 245, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .stat-card:hover::before {
+            left: 100%;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: #00ff88;
+            box-shadow: 0 10px 40px rgba(0, 245, 255, 0.3);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #00f5ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 0.5rem;
+        }
+
+        /* Search Bar */
+        .search-container {
+            margin-bottom: 2rem;
+        }
+
+        .search-box {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 1rem 3rem 1rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(0, 245, 255, 0.3);
+            border-radius: 50px;
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #00ff88;
+            box-shadow: 0 0 30px rgba(0, 245, 255, 0.4);
+        }
+
+        .search-box input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #00f5ff;
+            font-size: 1.2rem;
+        }
+
+        /* Server Grid */
+        .servers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .server-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 245, 255, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .server-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(0, 245, 255, 0.1),
+                transparent
+            );
+            transform: rotate(45deg);
+            transition: all 0.6s;
+        }
+
+        .server-card:hover::before {
+            left: 100%;
+        }
+
+        .server-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: #00ff88;
+            box-shadow: 0 20px 60px rgba(0, 245, 255, 0.4);
+        }
+
+        .server-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .server-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #00f5ff, #00ff88);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-right: 1rem;
+            box-shadow: 0 5px 20px rgba(0, 245, 255, 0.4);
+        }
+
+        .server-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.3rem;
+            color: #00f5ff;
+        }
+
+        .server-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #00ff88;
+            box-shadow: 0 0 10px #00ff88;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(1.2);
+            }
+        }
+
+        .status-text {
+            color: #00ff88;
+            font-size: 0.9rem;
+        }
+
+        .server-details {
+            position: relative;
+            z-index: 1;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            padding: 0.8rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            border-left: 3px solid #00f5ff;
+        }
+
+        .detail-label {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .detail-value {
+            color: #00ff88;
+            font-weight: bold;
+        }
+
+        .server-description {
+            margin: 1.5rem 0;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        .server-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tag {
+            padding: 0.4rem 1rem;
+            background: rgba(0, 245, 255, 0.1);
+            border: 1px solid rgba(0, 245, 255, 0.3);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: #00f5ff;
+        }
+
+        .connect-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #00f5ff, #00ff88);
+            border: none;
+            border-radius: 10px;
+            color: #0a0e27;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .connect-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .connect-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .connect-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 245, 255, 0.5);
+        }
+
+        /* Footer */
+        footer {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 3rem;
+        }
+
+        footer p {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .servers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+        }
+
+        /* Copy notification */
+        .copy-notification {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #00f5ff, #00ff88);
+            color: #0a0e27;
+            border-radius: 10px;
+            font-weight: bold;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0, 245, 255, 0.5);
+        }
+
+        .copy-notification.show {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Copy notification -->
+    <div class="copy-notification" id="copyNotification">
+        ✓ IP Address disalin!
+    </div>
+
+    <header>
+        <h1>⛏️ MINECRAFT BEDROCK SERVERS</h1>
+        <p class="subtitle">List Server Bedrock Terbaik Indonesia & International</p>
+    </header>
+
+    <div class="container">
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat-card">
+                <div class="stat-number">50+</div>
+                <div class="stat-label">Total Servers</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">10K+</div>
+                <div class="stat-label">Active Players</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Online Status</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Free to Play</div>
+            </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="🔍 Cari server favorite kamu...">
+                <span class="search-icon">⚡</span>
+            </div>
+        </div>
+
+        <!-- Servers Grid -->
+        <div class="servers-grid" id="serversGrid">
+            <!-- Server cards will be inserted here by JavaScript -->
+        </div>
+    </div>
+
+    <footer>
+        <p>🎮 Minecraft Bedrock Server List 2025 | Stay Updated, Stay Connected</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem;">Made with ⚡ by Claude</p>
+    </footer>
+
+    <script>
+        // Server data
+        const servers = [
+            {
+                name: "NetherGames",
+                icon: "🎮",
+                ip: "play.nethergames.org",
+                port: "19132",
+                players: "5000+",
+                type: "Minigames",
+                region: "International",
+                version: "1.20+",
+                description: "Server minigames terbesar dengan berbagai mode seperti BedWars, SkyWars, Murder Mystery, dan masih banyak lagi!",
+                tags: ["Minigames", "BedWars", "SkyWars", "Popular"]
+            },
+            {
+                name: "Lifeboat",
+                icon: "⛵",
+                ip: "mco.lbsg.net",
+                port: "19132",
+                players: "3000+",
+                type: "Minigames",
+                region: "International",
+                version: "1.20+",
+                description: "Server klasik dengan komunitas besar, menawarkan SkyWars, Survival Games, dan mode permainan lainnya.",
+                tags: ["Classic", "Survival Games", "Community"]
+            },
+            {
+                name: "CubeCraft",
+                icon: "🧊",
+                ip: "mco.cubecraft.net",
+                port: "19132",
+                players: "4000+",
+                type: "Minigames",
+                region: "International",
+                version: "1.20+",
+                description: "Server populer dengan grafis keren dan berbagai minigames seru seperti EggWars, SkyWars, dan Lucky Islands.",
+                tags: ["EggWars", "Quality", "Featured"]
+            },
+            {
+                name: "The Hive",
+                icon: "🐝",
+                ip: "geo.hivebedrock.network",
+                port: "19132",
+                players: "6000+",
+                type: "Minigames",
+                region: "International",
+                version: "1.20+",
+                description: "Server minigames premium dengan kualitas tinggi, hosting berbagai mode permainan kompetitif.",
+                tags: ["Premium", "Competitive", "Active"]
+            },
+            {
+                name: "Mineplex",
+                icon: "💎",
+                ip: "pe.mineplex.com",
+                port: "19132",
+                players: "2000+",
+                type: "Minigames",
+                region: "International",
+                version: "1.20+",
+                description: "Jaringan server legendaris dengan puluhan minigames berbeda dan sistem ranking yang kompetitif.",
+                tags: ["Legendary", "Ranking", "Diverse"]
+            },
+            {
+                name: "HyperLands",
+                icon: "🌟",
+                ip: "play.hyperlandsmc.net",
+                port: "19132",
+                players: "1500+",
+                type: "Survival",
+                region: "International",
+                version: "1.20+",
+                description: "Server survival dengan ekonomi, jobs, dan custom items. Cocok untuk pemain yang suka grinding!",
+                tags: ["Survival", "Economy", "Jobs"]
+            },
+            {
+                name: "CosmicPE",
+                icon: "🌌",
+                ip: "cosmicpe.me",
+                port: "19132",
+                players: "800+",
+                type: "Factions",
+                region: "International",
+                version: "1.20+",
+                description: "Server factions hardcore dengan PvP intens, raiding, dan sistem clan yang kompleks.",
+                tags: ["Factions", "PvP", "Hardcore"]
+            },
+            {
+                name: "ExtremeCraft",
+                icon: "⚔️",
+                ip: "play.extremecraft.net",
+                port: "19132",
+                players: "1200+",
+                type: "Mixed",
+                region: "International",
+                version: "1.20+",
+                description: "Server multi-mode dengan survival, creative, dan minigames dalam satu tempat!",
+                tags: ["Multi-Mode", "Versatile", "Fun"]
+            },
+            {
+                name: "InpvpME",
+                icon: "🗡️",
+                ip: "inpvp.net",
+                port: "19132",
+                players: "600+",
+                type: "PvP",
+                region: "International",
+                version: "1.20+",
+                description: "Server khusus PvP dengan berbagai arena dan mode pertarungan. Cocok untuk pemain kompetitif!",
+                tags: ["PvP", "Arena", "Combat"]
+            },
+            {
+                name: "FallenTech",
+                icon: "🤖",
+                ip: "play.fallentech.io",
+                port: "19132",
+                players: "900+",
+                type: "Survival",
+                region: "International",
+                version: "1.20+",
+                description: "Server survival modern dengan custom enchants, bosses, dan teknologi futuristik!",
+                tags: ["Custom", "Bosses", "Tech"]
+            },
+            {
+                name: "PixelParadise",
+                icon: "🎨",
+                ip: "play.pixelparadise.gg",
+                port: "19132",
+                players: "1000+",
+                type: "Creative",
+                region: "International",
+                version: "1.20+",
+                description: "Server creative terbaik dengan plot besar, WorldEdit, dan kompetisi building reguler!",
+                tags: ["Creative", "Building", "WorldEdit"]
+            },
+            {
+                name: "AsiasMC",
+                icon: "🏯",
+                ip: "asiasmc.com",
+                port: "19132",
+                players: "700+",
+                type: "Survival",
+                region: "Asia",
+                version: "1.20+",
+                description: "Server Asia dengan ping rendah, menawarkan survival, skyblock, dan prison mode.",
+                tags: ["Asia", "Low Ping", "Skyblock"]
+            }
+        ];
+
+        // Generate particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Render servers
+        function renderServers(serversToRender) {
+            const grid = document.getElementById('serversGrid');
+            grid.innerHTML = '';
+
+            serversToRender.forEach(server => {
+                const card = document.createElement('div');
+                card.className = 'server-card';
+                card.innerHTML = `
+                    <div class="server-header">
+                        <div class="server-icon">${server.icon}</div>
+                        <div class="server-info">
+                            <h3>${server.name}</h3>
+                            <div class="server-status">
+                                <span class="status-dot"></span>
+                                <span class="status-text">Online</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="server-description">${server.description}</div>
+                    <div class="server-tags">
+                        ${server.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                    </div>
+                    <div class="server-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Players</span>
+                            <span class="detail-value">${server.players}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Type</span>
+                            <span class="detail-value">${server.type}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Region</span>
+                            <span class="detail-value">${server.region}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Version</span>
+                            <span class="detail-value">${server.version}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">IP</span>
+                            <span class="detail-value">${server.ip}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Port</span>
+                            <span class="detail-value">${server.port}</span>
+                        </div>
+                    </div>
+                    <button class="connect-btn" onclick="copyIP('${server.ip}', '${server.port}')">
+                        📋 Copy IP & Port
+                    </button>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Copy IP function
+        function copyIP(ip, port) {
+            const text = `${ip}:${port}`;
+            navigator.clipboard.writeText(text).then(() => {
+                const notification = document.getElementById('copyNotification');
+                notification.textContent = `✓ ${text} disalin!`;
+                notification.classList.add('show');
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 2000);
+            });
+        }
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const filtered = servers.filter(server => 
+                server.name.toLowerCase().includes(searchTerm) ||
+                server.type.toLowerCase().includes(searchTerm) ||
+                server.description.toLowerCase().includes(searchTerm) ||
+                server.tags.some(tag => tag.toLowerCase().includes(searchTerm))
+            );
+            renderServers(filtered);
+        });
+
+        // Initialize
+        createParticles();
+        renderServers(servers);
+    </script>
+</body>
+</html>
