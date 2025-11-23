@@ -164,7 +164,7 @@ Jika ada pertanyaan atau issue:
 
 ## 🌟 Credits
 
-Made with ⚡ by Claude
+Made with ⚡ by MS Hadianto & Syaakila
 Powered by Vercel
 
 ---
